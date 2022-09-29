@@ -44,14 +44,12 @@
         </div>
       </div>
       <ul :style="monitoring.hide">
-      <!-- <router-link to="/Home/user" v-for=" item in menuArray" :key="item.id">
-        <li>{{item.name}} </li> 
-      </router-link>-->
+      
     </ul>
   </div>
 </template>
 <script>
-import HomeLeftItem from '../Home-Left-Item/Home-Left-Item.vue'
+
 export default {
   name: 'Home-Left',
   data () {
@@ -82,7 +80,7 @@ export default {
     }
   },
   components: {
-    HomeLeftItem
+    // HomeLeftItem
   },
   methods: {
     //控制系统管理
@@ -125,7 +123,7 @@ export default {
 
 .left_div {
   background: @backc;
-  height: 100vh;
+  min-height: 950px;
   padding: 0px 5px;
 
   .headPortrait {

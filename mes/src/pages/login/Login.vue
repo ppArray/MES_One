@@ -64,7 +64,7 @@ export default {
     onSubmit (event) {
       event.preventDefault()
       console.log(this.form.name, this.form.pas, this.form.phone)
-      location.href='#/Home'
+      location.href='#/home'
       if (this.form.phone_show) {
         //表示为使用手机号登录
         if (this.form.phone !== '') {
@@ -79,6 +79,7 @@ export default {
                   type: 'phone',
                   save:this.form.status,
                   phone: this.form.phone,
+                  name:'',
                   pas: this.form.pas
                 }
               }).then((okk) => {
@@ -97,7 +98,7 @@ export default {
       } else {
         //表示为账号登录 
         if (this.form.name !== '') {
-          if (this.form.phone !== '') {
+          if (testPas ()) {
             var pattern = /^\d{9}/
             if (pattern.test(this.form.name)) { 
               this.$http({
@@ -107,7 +108,8 @@ export default {
                   //代表账号登录
                   type: 'name',
                   //代表是否保持登录  
-                  save:this.form.status,
+                  save: this.form.status,
+                  phone:'',
                   name: this.form.name,
                   pas: this.form.pas
                 }

@@ -5,12 +5,9 @@
 </template>
 
 <script>
-// import Login from './components/Login/Login.vue'
-
 export default {
   name: 'App',
   components: {
-  //  Login
   }
 }
 </script>
@@ -21,6 +18,9 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+ div{
+  box-sizing: border-box;
 }
 *{
   margin: 0;

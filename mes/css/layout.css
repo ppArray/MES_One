@@ -1,0 +1,19 @@
+.textAlign {
+  text-align: center;
+}
+.flex_vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.flex_both {
+  display: flex;
+  justify-content: space-between;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+a:hover {
+  text-decoration: none;
+}

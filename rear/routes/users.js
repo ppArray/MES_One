@@ -19,7 +19,7 @@ router.post('/userUpdate',(request,response)=>{
 });
 // 监听用户查询路由
 router.post('/userQuery',(request,response)=>{
-  const index=userQuery();
+  const index=userQuery(request.body);
   response.send(index);
 });
 // 监听用户删除路由

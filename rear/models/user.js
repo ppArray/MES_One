@@ -18,8 +18,15 @@
   });
  }
 //  全部用户查询
-const userQuery =()=>{
+const userQuery =(data)=>{
   let sql ='select * from sys_user';
+  if(data.logName){
+    sql ='select * from sys_user where login_name=?';
+  }else if(data.phone){
+    sql = 'select * from sys_user where phonenumber=?';
+  }else if(data.status){
+    sql = 'select * from sys_user where status=?';
+  }
   db.query(sql,(err,results)=>{
     if(err) return err.message;
     return results;

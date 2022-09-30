@@ -7,5 +7,7 @@
  * @constructor
  * */
 const paginate=(page,perPage,total,items)=>{
-  
+  if(page<1){
+    page=1;
+  }
 }

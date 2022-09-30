@@ -1,6 +1,8 @@
  const db=require('../utils/mysqlDB')
+ const md5=require('md5-node');
 //  电话号码登录验证
  const phoneLogin= (phone,pas)=>{
+  pas=md5(md5(pas));
   let sql ='select * from sys_user where phonenumber=? and password=?';
   db.query(sql,[phone,pas],(err,results)=>{
     if(err) return err.message;

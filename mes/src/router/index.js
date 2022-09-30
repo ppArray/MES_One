@@ -21,4 +21,23 @@ const router = new VueRouter({
     {path: '/userAmend', component: UserAmend}
   ]
 })
+router.beforeEach((to, from, next) => {
+  
+  if (to.path === '/Home' || to.path === '/userAdd' || to.path == '/userAmend') {
+    const token = localStorage.getItem('token')
+    console.log(token)
+    if (token) {
+      next()
+    } else {
+      next('/')
+    }
+  } else {
+    next()
+  }
+})
+//前置守卫
+const VueRouterPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push () {
+  return VueRouterPush.call(this,to).catch(err=>err)
+}
 export default router

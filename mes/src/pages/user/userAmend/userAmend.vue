@@ -55,7 +55,7 @@
       </div>
     </div>
     <div style="text-align: center;">
-      <b-button variant="primary" @click="present">提交</b-button>
+      <b-button variant="primary" @click="present">修改</b-button>
       &nbsp;
       <b-button variant="danger" @click="reset">重置</b-button>
     </div>

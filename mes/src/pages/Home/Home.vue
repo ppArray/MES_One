@@ -5,8 +5,11 @@
       <div class="left_comp">
         <HomeLeft></HomeLeft>
       </div>
+      <div>
+        <!--树形解构-->
+      </div>
       <div class="right_comp">
-    <router-view />
+        <router-view />
       </div>
     </div>
   </div>
@@ -18,7 +21,7 @@ import HomeLeft from './Left/Home-Left.vue';
 export default {
   name: 'Home',
   components: {
-    HomeTop,HomeLeft
+    HomeTop, HomeLeft
   }
 }
 </script>
@@ -30,7 +33,7 @@ export default {
     display: flex;
 
     .left_comp {
-    width: 215px;
+      width: 215px;
 
     }
 

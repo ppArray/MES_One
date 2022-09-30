@@ -9,7 +9,10 @@
           </b-button>
         </router-link>
 
-
+        <b-button variant="danger" size="sm" @click="delect(item.id)">
+                <b-icon icon="x-lg"></b-icon>
+                删除
+              </b-button>
         <b-button variant="info" style="color:aliceblue">
           <b-icon icon="arrow-bar-up"></b-icon>
           导出

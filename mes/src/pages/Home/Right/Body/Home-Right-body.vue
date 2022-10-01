@@ -10,14 +10,14 @@
         </router-link>
 
         <b-button variant="danger" size="sm" @click="delect(item.id)">
-                <b-icon icon="x-lg"></b-icon>
-                删除
-              </b-button>
-        <b-button variant="info" style="color:aliceblue">
+          <b-icon icon="x-lg"></b-icon>
+          删除
+        </b-button>
+        <b-button variant="info" style="color: aliceblue">
           <b-icon icon="arrow-bar-up"></b-icon>
           导出
         </b-button>
-        <b-button variant="warning" style="color:aliceblue">
+        <b-button variant="warning" style="color: aliceblue">
           <b-icon icon="arrow-bar-down"></b-icon>
           导入
         </b-button>
@@ -29,69 +29,60 @@
         <thead>
           <tr>
             <td>
-              <input type="checkbox" name="" id="">
+              <input type="checkbox" name="" id="" />
             </td>
-            <td>
-              用户ID
-            </td>
-            <td>
-              登录名称
-            </td>
-            <td>
-              用户名称
-            </td>
-            <td>
-              部门
-            </td>
-            <td>
-              手机
-            </td>
-            <td>
-              用户状态
-            </td>
-            <td>
-              创建时间
-            </td>
-            <td>
-              操作
-            </td>
+            <td>用户ID</td>
+            <td>登录名称</td>
+            <td>用户名称</td>
+            <td>部门</td>
+            <td>手机</td>
+            <td>用户状态</td>
+            <td>创建时间</td>
+            <td>操作</td>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item,index in userArray" :key="item.id">
+          <tr v-for="(item, index) in userArray" :key="item.id">
             <td>
-              <input type="checkbox" name="" id="" :checked="item.status" v-model="item.status">
+              <input
+                type="checkbox"
+                name=""
+                id=""
+              
+              />
             </td>
             <td>
-              {{ item.id}}
+              {{ item.user_id }}
             </td>
             <td>
-              {{item.accountName}}
+              {{ item.login_name }}
             </td>
             <td>
-              {{item.username}}
+              {{ item.user_name }}
             </td>
             <td>
-              {{item.department}}
+              {{ item.dept }}
             </td>
             <td>
-              {{item.phone}}
+              {{ item.phonenumber }}
             </td>
             <td>
-              <el-switch v-model="item.userStatus" active-color="#69c0ff">
+              <el-switch
+                v-model="item.status "
+                active-color="#69c0ff"
+              >
               </el-switch>
             </td>
             <td>
-              {{item.date}}
+              {{ item.create_time }}
             </td>
             <td>
-
-              <b-button variant="success" size="sm" @click="go(item.id)">
+              <b-button variant="success" size="sm" @click="go(item.user_id)">
                 <b-icon icon=" pencil-square"></b-icon>
                 修改
               </b-button>
               &nbsp;
-              <b-button variant="danger" size="sm" @click="delect(item.id)">
+              <b-button variant="danger" size="sm" @click="delect(item.user_id)">
                 <b-icon icon="x-lg"></b-icon>
                 删除
               </b-button>
@@ -106,63 +97,98 @@
   </div>
 </template>
 <script>
-import Paging from '@/components/paging/Paging.vue'
+import Paging from "@/components/paging/Paging.vue";
 
 export default {
-  name: 'Home-Right-body',
-  data () {
+  name: "Home-Right-body",
+  data() {
     return {
       userArray: [
-        { status: false, id: 'user01', accountName: 'admin', username: '若依', department: '测试部门', phone: '18574646752', userStatus: true, date: '2022-02-05 10:23:07' },
-        { status: false, id: 'user02', accountName: 'min', username: '小胖是渣男', department: '生产部门', phone: '11574646752', userStatus: true, date: '2022-01-08 10:23:07' }
+        // { status: false, user_id: 'user01', login_name: 'admin', user_name: '若依', dept: '测试部门', phonenumber: '18574646752', userStatus: true,create_time: '2022-02-05 10:23:07' },
+        // { status: false, user_id: 'user02', login_name: 'min', user_name: '小胖是渣男', dept: '生产部门', phonenumber: '11574646752', userStatus: true,create_time: '2022-01-08 10:23:07' }
       ],
       //总数据的条数
       currentPage: 2,
       //当前页数：
       presenting: 1,
       table: {
-        checkAll: false
-      }
-    }
+        checkAll: false,
+      },
+    };
   },
   //组件刚开始加载时
-  created () {
-    this.beg()
-   },
+  created() {
+    this.beg();
+  },
   methods: {
     //发送axios的请求
-    beg () {
-      console.log('发送请求')
+    beg() {
+      this.$http({
+        method: "POST",
+        url: "/users/userQuery",
+      }).then((array) => {
+        console.log(array);
+        this.userArray = array.data;
+        this.userArray.forEach(e=>{
+          e.create_time=this.dataFormat(e.create_time)
+          e.status=e.status==0?true:false
+        })
+      });
     },
     //判断所有是否全选了所有用户
-    AllUser () {
-      this.userArray.some(item)
+    AllUser() {
+      this.userArray.some(item);
     },
     //跳转页面并传参
-    go (id) {
+    go(id) {
       this.$router.push({
-        path: "/userAmend?userid=" + id
+        path: "/userAmend?userid=" + id,
       });
     },
     //删除用户axios请求(post)
-    delect (id) {
-      console.log(id)
+    delect(id) {
+      console.log(id);
+    if(confirm('确认要删除用户：'+id)){
       this.$http({
-        method: 'POST',
-        url: '',
+        method: "POST",
+        url: "users/userDelete",
         data: {
-          delectId:id
-        }
+          delectId: id,
+        },
       }).then((res) => {
-        console.log(res)
-      })
+       if(res.status===200){
+        alert('删除成功')
+        this.beg()
+       }
+
+      });
     }
+     
+    },
+    //转换时间的格式
+    dataFormat(dtStr) {
+      const dt = new Date(dtStr);
+
+      const y = dt.getFullYear();
+      const m = this.padZero(dt.getMonth() + 1);
+      const d = this.padZero(dt.getDate());
+
+      const hh = this.padZero(dt.getHours());
+      const mm = this.padZero(dt.getMinutes());
+      const ss = this.padZero(dt.getSeconds());
+
+      return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
+    },
+    //时间补零的函数
+    padZero(n) {
+    return n > 9 ? n : '0' + n;
+  }
   },
   //注册一个组件
   components: {
-    Paging
-  }
-}
+    Paging,
+  },
+};
 </script>
 <style lang="less" scoped>
 @import url(@/font.less);
@@ -205,9 +231,7 @@ export default {
         td:first-child {
           padding-left: 10px;
         }
-
       }
-
     }
 
     .pagingDiv {

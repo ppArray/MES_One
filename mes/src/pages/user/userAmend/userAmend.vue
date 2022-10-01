@@ -17,9 +17,9 @@
           <p>角色：</p>
         </div>
         <div>
-          <p><input type="text" placeholder="请用输入用户名" v-model="user.username" /></p>
-          <p><input type="text" placeholder="请用输入手机号" v-model="user.userphone" /></p>
-          <p><input type="text" placeholder="请用输入账号" v-model="user.userID" /></p>
+          <p><input type="text" placeholder="请用输入用户名" v-model="user.user_name" /></p>
+          <p><input type="text" placeholder="请用输入手机号" v-model="user.phonenumber" /></p>
+          <p><input type="text" placeholder="请用输入账号" v-model="user.login_name" /></p>
           <p>
             <b-form-select id="input-3" v-model="user.userSex" required :options="sex"></b-form-select>
           </p>
@@ -42,11 +42,11 @@
 
           </div>
           <div>
-            <p> <input type="text" placeholder="请输入归属部门" v-model="user.department" /></p>
+            <p> <input type="text" placeholder="请输入归属部门" v-model="user.dept" /></p>
             <p><input type="email" placeholder="请输入邮箱" v-model="user.email" /></p>
-            <p><input type="password" placeholder="请输入密码" v-model="user.pas" /></p>
+            <p><input type="password" placeholder="请输入密码" v-model="user.password" /></p>
             <p>
-              <el-switch v-model="user.userStatus" active-color="#69c0ff">
+              <el-switch v-model="user.status" active-color="#69c0ff">
               </el-switch>
             </p>
 
@@ -69,23 +69,23 @@ export default {
     return {
       user: {
         //用户名
-        username: '',
+        user_name: '',
         //手机号
-        userphone: '',
+        phonenumber: '',
         //用户账号
-        userID: '',
+        login_name: '',
         //用户性别
-        userSex: '',
+        sex: '',
         //用户状态
-        userStatus: true,
+        status: true,
         //用户岗位
-        station: true,
+        role: true,
         //部门
-        department: '',
+        dept : '',
         //邮箱
         email: '',
         //密码
-        pas: '',
+        password: '',
       },
       sex: ['男', '女'],
       queryid: '001'
@@ -100,23 +100,23 @@ export default {
     reset () {
       var users = {
         //用户名
-        username: '',
+        user_name: '',
         //手机号
-        userphone: '',
+        phonenumber: '',
         //用户账号
-        userID: '',
+        login_name: '',
         //用户性别
-        userSex: '',
+        sex: '',
         //用户状态
-        userStatus: true,
+        status: true,
         //用户岗位
-        station: true,
+        role: true,
         //部门
-        department: '',
+        dept : '',
         //邮箱
         email: '',
         //密码
-        pas: '',
+        password: '',
       }
       this.user = users
     },
@@ -168,9 +168,9 @@ export default {
     beg () {
       this.$http({
         method: 'POST',
-        url: 'http://localhost:3000/userQuery',
+        url: 'http://localhost:3000/users/userQuery',
         data: {
-          queryid: this.queryid
+          user_id: this.queryid
         }
       }).then((res) => {
         console.log(res)
@@ -179,6 +179,7 @@ export default {
   },
   created () {
     this.queryid = this.$route.query.userid
+    console.log( this.queryid)
     this.beg()
   }
 
@@ -191,7 +192,8 @@ export default {
 .userDiv {
   margin: 1px;
   background: #f5f5f5;
-  min-height: 993px;
+  // min-height: 993px;
+  height: 99vh;
   padding: 5px 25px;
 
   hr {
@@ -209,7 +211,7 @@ export default {
   }
 
   .userAdd_body {
-    padding-left: 230px;
+    // padding-left: 230px;
 
     .left_input {
       min-width: 610px;

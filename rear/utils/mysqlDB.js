@@ -1,7 +1,7 @@
 // 导入 mysql 模块
-const mysql =require('mysql')
+const mysql2 =require('mysql2')
 // 设置链接信息
-const connection = mysql.createConnection({
+const connection = mysql2.createConnection({
   host:'localhost',
   user:'root',
   password:'123',

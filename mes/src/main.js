@@ -14,6 +14,7 @@ Vue.use(IconsPlugin)
 Vue.use(Switch)
 Vue.use(Pagination)
 
+axios.defaults.baseURL='http://localhost:3000'
 Vue.prototype.$http=axios
 new Vue({
   router,

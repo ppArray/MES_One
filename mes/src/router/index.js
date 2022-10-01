@@ -22,8 +22,8 @@ const router = new VueRouter({
   ]
 })
 //前置守卫
-router.beforeEach((to, from, next) => {
-  console.log('你来不来')
+/* router.beforeEach((to, from, next) => {
+  // console.log('你来不来')
   if (to.path === '/home' || to.path === '/userAdd' || to.path == '/userAmend') {
     const token = localStorage.getItem('token')
     console.log(token)
@@ -35,10 +35,10 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-})
+}) */
 
-const VueRouterPush = VueRouter.prototype.push
+/* const VueRouterPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push () {
   return VueRouterPush.call(this,to).catch(err=>err)
-}
+} */
 export default router

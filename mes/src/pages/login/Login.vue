@@ -74,7 +74,7 @@ export default {
               //如果是手机号
               this.$http({
                 method: 'POST',
-                url: '/api/login',
+                url: '/login',
                 data: {
                   type: 'phone',
                   save:this.form.status,
@@ -83,8 +83,11 @@ export default {
                   pas: this.form.pas
                 }
               }).then((okk) => {
-                console.log(okk)
-              
+                if(okk.data==='ok'){
+                  location.href='#/home'
+                }else{
+                  alert('用户名或密码错误！')
+                }
               })
             } else {
               this.write_font = '请输入正确的手机格式',
@@ -114,7 +117,11 @@ export default {
                   pas: this.form.pas
                 }
               }).then((okk) => {
-                console.log(okk)
+                if(okk.data==='ok'){
+                  location.href='#/home'
+                }else{
+                  alert('用户名或密码错误！')
+                }
               })
             } else {
               this.write_font = '请输入正确的账号格式',

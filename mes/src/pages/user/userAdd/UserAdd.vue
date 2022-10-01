@@ -17,15 +17,15 @@
           <p>角色：</p>
         </div>
         <div>
-          <p><input type="text" placeholder="请用输入用户名" v-model="user.username" /></p>
-          <p><input type="text" placeholder="请用输入手机号" v-model="user.userphone" /></p>
-          <p><input type="text" placeholder="请用输入账号" v-model="user.userID" /></p>
+          <p><input type="text" placeholder="请用输入用户名" v-model="user.user_name" /></p>
+          <p><input type="text" placeholder="请用输入手机号" v-model="user.phonenumber" /></p>
+          <p><input type="text" placeholder="请用输入账号" v-model="user.login_name" /></p>
           <p>
-            <b-form-select id="input-3" v-model="user.userSex" required :options="sex"></b-form-select>
+            <b-form-select id="input-3" v-model="user.sex" required :options="sex"></b-form-select>
           </p>
 
           <p>
-            <b-form-checkbox id="checkbox-1" v-model="user.station" name="checkbox-1">&nbsp;
+            <b-form-checkbox id="checkbox-1" v-model="user.role" name="checkbox-1">&nbsp;
               普通角色
             </b-form-checkbox>
           </p>
@@ -41,11 +41,11 @@
 
           </div>
           <div>
-            <p> <input type="text" placeholder="请输入归属部门" v-model="user.department" /></p>
+            <p> <input type="text" placeholder="请输入归属部门" v-model="user.dept" /></p>
             <p><input type="email" placeholder="请输入邮箱" v-model="user.email" /></p>
-            <p><input type="password" placeholder="请输入密码" v-model="user.pas" /></p>
+            <p><input type="password" placeholder="请输入密码" v-model="user.passwrod" /></p>
             <p>
-              <el-switch v-model="user.userStatus" active-color="#69c0ff">
+              <el-switch v-model="user.status" active-color="#69c0ff">
               </el-switch>
             </p>
 
@@ -68,23 +68,23 @@ export default {
     return {
       user: {
         //用户名
-        username: '',
+        user_name: '',
         //手机号
-        userphone: '',
+        phonenumber: '',
         //用户账号
-        userID: '',
+        login_name: '',
         //用户性别
-        userSex: '',
+        sex: '男',
         //用户状态
-        userStatus: true,
-        //用户岗位
-        station: true,
+        status: true,
+        //用户角色
+        role: true,
         //部门
-        department: '',
+        dept: '',
         //邮箱
         email: '',
         //密码
-        pas: '',
+        passwrod: '',
       },
       sex: ['男', '女']
     }
@@ -98,37 +98,44 @@ export default {
     reset () {
       var users = {
         //用户名
-        username: '',
+        user_name: '',
         //手机号
-        userphone: '',
+        phonenumber: '',
         //用户账号
-        userID: '',
+        login_name: '',
         //用户性别
-        userSex: '',
+        sex: '',
         //用户状态
-        userStatus: true,
+        status: true,
         //用户岗位
         station: true,
         //部门
-        department: '',
+        dept: '',
         //邮箱
         email: '',
         //密码
-        pas: '',
+        password: '',
       }
       this.user = users
     },
     //提交按钮
     present () {
-      if (this.user.username !== '' && this.user.userID !== '' && this.user.pas !== '') {
+      
+      if (this.user.user_name !== '' && this.user.login_name !== '' && this.user.passwrod !== '') {
         //判断三个必填都写了
+        // console.log(this.testPhone())
         if (this.testID()&&this.testPas()&&this.testPhone()) {
           this.$http({
             method: 'POST',
-            url: 'http://localhost:3000/',
+            url: '/users/userAdd',
             data:this.user
           }).then((res) => {
-            console.log(res)
+            if(res.status===200){
+              alert('用户增加成功')
+              this.getBack()
+            }else{
+              alert('用户增加失败')
+            }
           })
         }
       } else {
@@ -137,9 +144,9 @@ export default {
     },
      //校验手机号
     testPhone () {
-      if (this.user.userphone !== '') {
+      if (this.user.phonenumber !== '') {
         var pattern = /^1[8|5|9]\d{9}/
-        if (!pattern.test(this.user.userphone))
+        if (!pattern.test(this.user.phonenumber))
         alert('手机号格式错误')
           return false
       }
@@ -148,7 +155,7 @@ export default {
     //账号校验
     testID () {
       var pattern = /^\d{9}/
-      if (!pattern.test(this.user.userID)) {
+      if (!pattern.test(this.user.login_name)) {
         alert('账号格式应该是9位的纯数字')
         return false
       }
@@ -156,8 +163,8 @@ export default {
     },
     //密码校验
     testPas () {
-      var pattern = /^\d{6,15}/
-      if (!pattern.test(this.user.pas)) {
+      var pattern = /^\d{5,10}/
+      if (!pattern.test(this.user.passwrod)) {
         return false
       }
       return true
@@ -172,7 +179,8 @@ export default {
 .userDiv {
   margin: 1px;
   background: #f5f5f5;
-  min-height: 993px;
+  // min-height: 993px;
+  height: 99vh;
   padding: 5px 25px;
 
   hr {
@@ -190,7 +198,7 @@ export default {
   }
 
   .userAdd_body {
-    padding-left: 230px;
+    // padding-left: 230px;
 
     .left_input {
       min-width: 610px;
